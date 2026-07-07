@@ -15,6 +15,8 @@ import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
+import { Route as DashboardServicesRouteImport } from './routes/dashboard.services'
+import { Route as DashboardPetsRouteImport } from './routes/dashboard.pets'
 
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
@@ -46,6 +48,16 @@ const DashboardIndexRoute = DashboardIndexRouteImport.update({
   path: '/',
   getParentRoute: () => DashboardRoute,
 } as any)
+const DashboardServicesRoute = DashboardServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardPetsRoute = DashboardPetsRouteImport.update({
+  id: '/pets',
+  path: '/pets',
+  getParentRoute: () => DashboardRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -53,6 +65,8 @@ export interface FileRoutesByFullPath {
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/dashboard/pets': typeof DashboardPetsRoute
+  '/dashboard/services': typeof DashboardServicesRoute
   '/dashboard/': typeof DashboardIndexRoute
 }
 export interface FileRoutesByTo {
@@ -60,6 +74,8 @@ export interface FileRoutesByTo {
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/dashboard/pets': typeof DashboardPetsRoute
+  '/dashboard/services': typeof DashboardServicesRoute
   '/dashboard': typeof DashboardIndexRoute
 }
 export interface FileRoutesById {
@@ -69,6 +85,8 @@ export interface FileRoutesById {
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/dashboard/pets': typeof DashboardPetsRoute
+  '/dashboard/services': typeof DashboardServicesRoute
   '/dashboard/': typeof DashboardIndexRoute
 }
 export interface FileRouteTypes {
@@ -79,9 +97,18 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/login'
     | '/register'
+    | '/dashboard/pets'
+    | '/dashboard/services'
     | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/forgot-password' | '/login' | '/register' | '/dashboard'
+  to:
+    | '/'
+    | '/forgot-password'
+    | '/login'
+    | '/register'
+    | '/dashboard/pets'
+    | '/dashboard/services'
+    | '/dashboard'
   id:
     | '__root__'
     | '/'
@@ -89,6 +116,8 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/login'
     | '/register'
+    | '/dashboard/pets'
+    | '/dashboard/services'
     | '/dashboard/'
   fileRoutesById: FileRoutesById
 }
@@ -144,14 +173,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardIndexRouteImport
       parentRoute: typeof DashboardRoute
     }
+    '/dashboard/services': {
+      id: '/dashboard/services'
+      path: '/services'
+      fullPath: '/dashboard/services'
+      preLoaderRoute: typeof DashboardServicesRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/pets': {
+      id: '/dashboard/pets'
+      path: '/pets'
+      fullPath: '/dashboard/pets'
+      preLoaderRoute: typeof DashboardPetsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
   }
 }
 
 interface DashboardRouteChildren {
+  DashboardPetsRoute: typeof DashboardPetsRoute
+  DashboardServicesRoute: typeof DashboardServicesRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
 }
 
 const DashboardRouteChildren: DashboardRouteChildren = {
+  DashboardPetsRoute: DashboardPetsRoute,
+  DashboardServicesRoute: DashboardServicesRoute,
   DashboardIndexRoute: DashboardIndexRoute,
 }
 
