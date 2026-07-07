@@ -16,7 +16,11 @@ import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
 import { Route as DashboardServicesRouteImport } from './routes/dashboard.services'
+import { Route as DashboardProfileRouteImport } from './routes/dashboard.profile'
 import { Route as DashboardPetsRouteImport } from './routes/dashboard.pets'
+import { Route as DashboardBookRouteImport } from './routes/dashboard.book'
+import { Route as DashboardAppointmentsRouteImport } from './routes/dashboard.appointments'
+import { Route as DashboardAdminRouteImport } from './routes/dashboard.admin'
 
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
@@ -53,9 +57,29 @@ const DashboardServicesRoute = DashboardServicesRouteImport.update({
   path: '/services',
   getParentRoute: () => DashboardRoute,
 } as any)
+const DashboardProfileRoute = DashboardProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => DashboardRoute,
+} as any)
 const DashboardPetsRoute = DashboardPetsRouteImport.update({
   id: '/pets',
   path: '/pets',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardBookRoute = DashboardBookRouteImport.update({
+  id: '/book',
+  path: '/book',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardAppointmentsRoute = DashboardAppointmentsRouteImport.update({
+  id: '/appointments',
+  path: '/appointments',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardAdminRoute = DashboardAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => DashboardRoute,
 } as any)
 
@@ -65,7 +89,11 @@ export interface FileRoutesByFullPath {
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/dashboard/admin': typeof DashboardAdminRoute
+  '/dashboard/appointments': typeof DashboardAppointmentsRoute
+  '/dashboard/book': typeof DashboardBookRoute
   '/dashboard/pets': typeof DashboardPetsRoute
+  '/dashboard/profile': typeof DashboardProfileRoute
   '/dashboard/services': typeof DashboardServicesRoute
   '/dashboard/': typeof DashboardIndexRoute
 }
@@ -74,7 +102,11 @@ export interface FileRoutesByTo {
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/dashboard/admin': typeof DashboardAdminRoute
+  '/dashboard/appointments': typeof DashboardAppointmentsRoute
+  '/dashboard/book': typeof DashboardBookRoute
   '/dashboard/pets': typeof DashboardPetsRoute
+  '/dashboard/profile': typeof DashboardProfileRoute
   '/dashboard/services': typeof DashboardServicesRoute
   '/dashboard': typeof DashboardIndexRoute
 }
@@ -85,7 +117,11 @@ export interface FileRoutesById {
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/dashboard/admin': typeof DashboardAdminRoute
+  '/dashboard/appointments': typeof DashboardAppointmentsRoute
+  '/dashboard/book': typeof DashboardBookRoute
   '/dashboard/pets': typeof DashboardPetsRoute
+  '/dashboard/profile': typeof DashboardProfileRoute
   '/dashboard/services': typeof DashboardServicesRoute
   '/dashboard/': typeof DashboardIndexRoute
 }
@@ -97,7 +133,11 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/login'
     | '/register'
+    | '/dashboard/admin'
+    | '/dashboard/appointments'
+    | '/dashboard/book'
     | '/dashboard/pets'
+    | '/dashboard/profile'
     | '/dashboard/services'
     | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
@@ -106,7 +146,11 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/login'
     | '/register'
+    | '/dashboard/admin'
+    | '/dashboard/appointments'
+    | '/dashboard/book'
     | '/dashboard/pets'
+    | '/dashboard/profile'
     | '/dashboard/services'
     | '/dashboard'
   id:
@@ -116,7 +160,11 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/login'
     | '/register'
+    | '/dashboard/admin'
+    | '/dashboard/appointments'
+    | '/dashboard/book'
     | '/dashboard/pets'
+    | '/dashboard/profile'
     | '/dashboard/services'
     | '/dashboard/'
   fileRoutesById: FileRoutesById
@@ -180,6 +228,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardServicesRouteImport
       parentRoute: typeof DashboardRoute
     }
+    '/dashboard/profile': {
+      id: '/dashboard/profile'
+      path: '/profile'
+      fullPath: '/dashboard/profile'
+      preLoaderRoute: typeof DashboardProfileRouteImport
+      parentRoute: typeof DashboardRoute
+    }
     '/dashboard/pets': {
       id: '/dashboard/pets'
       path: '/pets'
@@ -187,17 +242,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardPetsRouteImport
       parentRoute: typeof DashboardRoute
     }
+    '/dashboard/book': {
+      id: '/dashboard/book'
+      path: '/book'
+      fullPath: '/dashboard/book'
+      preLoaderRoute: typeof DashboardBookRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/appointments': {
+      id: '/dashboard/appointments'
+      path: '/appointments'
+      fullPath: '/dashboard/appointments'
+      preLoaderRoute: typeof DashboardAppointmentsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/admin': {
+      id: '/dashboard/admin'
+      path: '/admin'
+      fullPath: '/dashboard/admin'
+      preLoaderRoute: typeof DashboardAdminRouteImport
+      parentRoute: typeof DashboardRoute
+    }
   }
 }
 
 interface DashboardRouteChildren {
+  DashboardAdminRoute: typeof DashboardAdminRoute
+  DashboardAppointmentsRoute: typeof DashboardAppointmentsRoute
+  DashboardBookRoute: typeof DashboardBookRoute
   DashboardPetsRoute: typeof DashboardPetsRoute
+  DashboardProfileRoute: typeof DashboardProfileRoute
   DashboardServicesRoute: typeof DashboardServicesRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
 }
 
 const DashboardRouteChildren: DashboardRouteChildren = {
+  DashboardAdminRoute: DashboardAdminRoute,
+  DashboardAppointmentsRoute: DashboardAppointmentsRoute,
+  DashboardBookRoute: DashboardBookRoute,
   DashboardPetsRoute: DashboardPetsRoute,
+  DashboardProfileRoute: DashboardProfileRoute,
   DashboardServicesRoute: DashboardServicesRoute,
   DashboardIndexRoute: DashboardIndexRoute,
 }
