@@ -117,10 +117,17 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
+  useEffect(() => {
+    const stored = localStorage.getItem("pawpal:theme");
+    const prefers = window.matchMedia?.("(prefers-color-scheme: dark)").matches;
+    const t = stored ?? (prefers ? "dark" : "light");
+    document.documentElement.classList.toggle("dark", t === "dark");
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
+      <Toaster position="top-center" richColors closeButton />
     </QueryClientProvider>
   );
 }
